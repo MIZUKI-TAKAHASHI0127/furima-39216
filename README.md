@@ -82,7 +82,6 @@ https://furima-39216.onrender.com/
 
 - has_many :items
 - has_many :orders
-- has_many :comments
 
 <br>
 
@@ -104,7 +103,6 @@ https://furima-39216.onrender.com/
 
 - belongs_to :user
 - has_one :order
-- has_many :comments
 
 <br>
 
@@ -138,21 +136,6 @@ https://furima-39216.onrender.com/
 #### Association
 
 - belongs_to :order
-
-<br>
-
-### comments テーブル
-
-| Column | Type       | Options                        |
-| ------ | ---------- | ------------------------------ |
-| user   | references | null: false, foreign_key: true |
-| item   | references | null: false, foreign_key: true |
-| text   | text       | null: false                    |
-
-#### Association
-
-- belongs_to :user
-- belongs_to :item
 
 <br>
 <br>
