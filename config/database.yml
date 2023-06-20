@@ -9,11 +9,11 @@ default: &default
 
 development:
   <<: *default
-  database: furima-39216-development
+  database: furima_39216-development
 
 test:
   <<: *default
-  database: furima-39216-test
+  database: furima_39216-test
 
 #切り替え
 production:
