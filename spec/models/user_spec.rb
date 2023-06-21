@@ -32,7 +32,7 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context '新規登録がうまくかないとき' do
+    context '新規登録がうまくいかないとき' do
       it 'ニックネームが空欄だと保存できない' do
         @user.nickname = ''
         @user.valid?
@@ -53,7 +53,12 @@ RSpec.describe User, type: :model do
       it 'パスワードが空欄だと保存できない' do
         @user.password = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password can't be blank", 'Password Include both letters and numbers', "Password confirmation doesn't match Password")
+        expect(@user.errors.full_messages).to include("Password can't be blank")
+      end
+      it 'passwordとpassword_confirmationが不一致では登録できない' do
+        @user.password_confirmation = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
       it 'パスワード（確認含む）が5文字以下だと保存できない' do
         @user.password = 'ab123'
