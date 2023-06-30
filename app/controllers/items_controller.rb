@@ -20,26 +20,26 @@ class ItemsController < ApplicationController
     end
   end
 
-  #def edit
-   # @item = Item.find(params[:id])
+  def edit
+    @item = Item.find(params[:id])
     # ログインしているユーザーと同一であればeditファイルが読み込まれる
-   # if @item.user_id == current_user.id
-   # else
-    #  redirect_to root_path
-   # end
- # end
+    if @item.user_id == current_user.id
+    else
+      redirect_to root_path
+    end
+  end
 
-  #def update
-  #  @item = Item.find(params[:id])
-  #  @item.update(item_params)
-  #  # バリデーションがOKであれば詳細画面へ
-   # if @item.valid?
-   #   redirect_to item_path(item_params)
-   # else
+  def update
+    @item = Item.find(params[:id])
+    @item.update(item_params)
+    # バリデーションがOKであれば詳細画面へ
+    if @item.valid?
+      redirect_to item_path(item_params)
+    else
       # NGであれば、エラー内容とデータを保持したままeditファイルを読み込み、エラーメッセージを表示させる
-   #   render 'edit'
-  #  end
-  #end
+      render 'edit'
+    end
+  end
 
   def show
     @item = Item.find(params[:id])
