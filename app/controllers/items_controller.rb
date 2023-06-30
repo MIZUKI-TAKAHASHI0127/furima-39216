@@ -31,7 +31,7 @@ class ItemsController < ApplicationController
     @item.update(item_params)
     # バリデーションがOKであれば詳細画面へ
     if @item.update(item_params)
-      redirect_to item_path(item_params)
+      redirect_to item_path(@item)
     else
       # NGであれば、エラー内容とデータを保持したままeditファイルを読み込み、エラーメッセージを表示させる
       render 'edit'
