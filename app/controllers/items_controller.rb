@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   # ログインしていないユーザーはログインページに促す
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user!, except: [:index, :show]
 
 
   def index
@@ -41,9 +41,9 @@ class ItemsController < ApplicationController
   #  end
   #end
 
- # def show
- #   @item = Item.find(params[:id])
- # end
+  def show
+    @item = Item.find(params[:id])
+  end
 
  # def destroy
   #  @item = Item.find(params[:id])
