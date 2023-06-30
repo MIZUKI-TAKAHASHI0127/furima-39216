@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   # ログインしていないユーザーはログインページに促す
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_item, only: [:show, :edit, :update]
+  before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   def index
     @items = Item.includes(:user).order(created_at: :desc)
@@ -22,8 +22,7 @@ class ItemsController < ApplicationController
 
   def edit
     # ログインしているユーザーと同一であればeditファイルが読み込まれる
-    if @item.user_id == current_user.id
-    else
+    if @item.user_id != current_user.id
       redirect_to root_path
     end
   end
@@ -31,7 +30,7 @@ class ItemsController < ApplicationController
   def update
     @item.update(item_params)
     # バリデーションがOKであれば詳細画面へ
-    if @item.valid?
+    if @item.update(item_params)
       redirect_to item_path(item_params)
     else
       # NGであれば、エラー内容とデータを保持したままeditファイルを読み込み、エラーメッセージを表示させる
@@ -42,16 +41,15 @@ class ItemsController < ApplicationController
   def show
   end
 
- # def destroy
-  #  @item = Item.find(params[:id])
+  def destroy
     # ログインしているユーザーと同一であればデータを削除する
-  #  if @item.user_id == current_user.id
-   #   @item.destroy
-    #  redirect_to root_path
-   # else
-   #   redirect_to root_path
-   # end
- # end
+    if @item.user_id == current_user.id
+      @item.destroy
+      redirect_to root_path
+    else
+      redirect_to root_path
+    end
+  end
 
   private
 
