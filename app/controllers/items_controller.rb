@@ -22,8 +22,7 @@ class ItemsController < ApplicationController
 
   def edit
     # ログインしているユーザーと同一であればeditファイルが読み込まれる
-    if @item.user_id == current_user.id
-    else
+    if @item.user_id != current_user.id
       redirect_to root_path
     end
   end
@@ -31,7 +30,7 @@ class ItemsController < ApplicationController
   def update
     @item.update(item_params)
     # バリデーションがOKであれば詳細画面へ
-    if @item.valid?
+    if @item.update(item_params)
       redirect_to item_path(item_params)
     else
       # NGであれば、エラー内容とデータを保持したままeditファイルを読み込み、エラーメッセージを表示させる
