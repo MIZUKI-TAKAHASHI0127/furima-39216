@@ -1,9 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe OrderForm, type: :model do
-  before do
-    @order_form = FactoryBot.build(:order_form)
-  end
+   before do
+    @user = FactoryBot.create(:user)
+    @item = FactoryBot.create(:item)
+    @order_form = FactoryBot.build(:order_form, user_id: @item.user.id, item_id: @item.id)
+    sleep 0.1
+   end
 
   describe '配送先情報の保存' do
     context '配送先情報の保存ができるとき' do
@@ -11,11 +14,11 @@ RSpec.describe OrderForm, type: :model do
         expect(@order_form).to be_valid
       end
       it 'user_idが空でなければ保存できる' do
-        @order_form.user_id = 1
+        @order_form.user_id = @user.id
         expect(@order_form).to be_valid
       end
       it 'item_idが空でなければ保存できる' do
-        @order_form.item_id = 1
+        @order_form.item_id = @item.id
         expect(@order_form).to be_valid
       end
       it '郵便番号が「3桁＋ハイフン＋4桁」の組み合わせであれば保存できる' do
@@ -39,7 +42,7 @@ RSpec.describe OrderForm, type: :model do
         expect(@order_form).to be_valid
       end
       it '電話番号が11番桁以内かつハイフンなしであれば保存できる' do
-        @order_form.phone_number = 12_345_678_910
+        @order_form.phone_number = '09012345678'
         expect(@order_form).to be_valid
       end
     end
@@ -98,6 +101,11 @@ RSpec.describe OrderForm, type: :model do
       
       it '電話番号が12桁以上あると保存できないこと' do
         @order_form.phone_number = '090123456789'
+        @order_form.valid?
+        expect(@order_form.errors.full_messages).to include('Phone number is invalid. Include hyphen(-)')
+      end
+      it '電話番号が9桁以下では保存できないこと' do
+        @order_form.phone_number = '090123456'
         @order_form.valid?
         expect(@order_form.errors.full_messages).to include('Phone number is invalid. Include hyphen(-)')
       end
