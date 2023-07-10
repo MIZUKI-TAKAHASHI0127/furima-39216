@@ -76,3 +76,4 @@ end
 gem 'active_hash'
 gem 'payjp'
 gem 'dotenv'
+gem 'image_processing', '~> 1.2'
