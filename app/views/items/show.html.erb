@@ -33,7 +33,7 @@
     <% elsif current_user.id != @item.user_id %>
     <%= link_to '購入画面に進む', item_orders_path(@item), class:"item-red-btn"%>
     <% end %>
-    <% end %>
+   <% end %>
 
     <div class="item-explain-box">
       <span><%= @item.description %></span>
