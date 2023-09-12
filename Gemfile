@@ -60,7 +60,7 @@ end
 gem 'pry-byebug', group: :development
 
 group :production do
-  gem 'pg'
+ # gem 'pg'
   gem 'unicorn', '5.4.1'
 end
 
