@@ -14,8 +14,8 @@
 
 # URL
 
-#### Renderによるデプロイ
-https://furima-39216.onrender.com/
+#### AWSによるデプロイ
+http://52.196.2.136/
 
 #### Basic認証
 - ID: admin
